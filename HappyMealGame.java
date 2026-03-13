@@ -9,7 +9,7 @@ public class HappyMealGame extends JFrame implements ActionListener {
 
     public HappyMealGame() {
 
-        setTitle("HAPPY MEAL TOURNAMENT");
+        setTitle("HAPPY MEAL");
         setSize(900,600);
         setLocationRelativeTo(null);
         setResizable(false);

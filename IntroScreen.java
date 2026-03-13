@@ -8,7 +8,7 @@ public class IntroScreen extends JFrame implements ActionListener {
 
     public IntroScreen() {
 
-        setTitle("Happy Meal Tournament");
+        setTitle("Happy Meal");
         setSize(900,600);
         setLocationRelativeTo(null);
         setResizable(false);
