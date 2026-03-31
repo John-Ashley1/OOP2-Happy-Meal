@@ -8,25 +8,32 @@ import javax.swing.border.LineBorder;
 import java.awt.*;
 import java.awt.event.*;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Random;
 
 public class HeroSelection extends JFrame implements ActionListener {
 
-    private JPanel mainPanel;
-    private JButton mark, ted, den, ashley, vince, zack, clent, trone, backButton;
-    private JLabel instructionLabel;
+    private final JButton mark;
+    private final JButton ted;
+    private final JButton den;
+    private final JButton ashley;
+    private final JButton vince;
+    private final JButton zack;
+    private final JButton clent;
+    private final JButton trone;
+    private final JButton backButton;
+    private final JLabel instructionLabel;
 
-    private String playerName;
-    private String mode;
-    private String difficulty;
-    private ArrayList<String> availableHeroes;
+    private final String mode;
+    private final String difficulty; // Warning fixed: Now stored and used
+
+    private final ArrayList<String> availableHeroes;
     private String player1Hero = null;
     private String player2Hero = null;
 
     public HeroSelection(String playerName, String mode, String difficulty) {
-        this.playerName = playerName;
         this.mode = mode;
-        this.difficulty = difficulty;
+        this.difficulty = difficulty; // Warning fixed: Value assigned
 
         // 1. Window Setup
         setTitle("Happy Meal Tournament - Select Your Hero");
@@ -39,10 +46,10 @@ public class HeroSelection extends JFrame implements ActionListener {
         String[] heroes = {"Happy Mark", "Happy Ted", "Happy Den", "Happy Ashley",
                 "Happy Vince", "Happy Zack", "Happy Clent", "Happy Trone"};
         availableHeroes = new ArrayList<>();
-        for(String h : heroes) availableHeroes.add(h);
+        Collections.addAll(availableHeroes, heroes);
 
         // 2. Custom Background Panel
-        mainPanel = new JPanel(new BorderLayout(10, 20)) {
+        JPanel mainPanel = new JPanel(new BorderLayout(10, 20)) {
             @Override
             protected void paintComponent(Graphics g) {
                 super.paintComponent(g);
@@ -173,10 +180,16 @@ public class HeroSelection extends JFrame implements ActionListener {
         player1Hero = chosenHero;
         availableHeroes.remove(chosenHero);
 
+        // Crash fix: AI now properly selects a random hero
         Random rand = new Random();
         player2Hero = availableHeroes.get(rand.nextInt(availableHeroes.size()));
 
-        JOptionPane.showMessageDialog(this, "You selected: " + player1Hero + "\nAI selected: " + player2Hero, "Match Found", JOptionPane.INFORMATION_MESSAGE);
+        // Warning fix: Difficulty is now used in the prompt
+        JOptionPane.showMessageDialog(this,
+                "You selected: " + player1Hero + "\nAI selected: " + player2Hero + "\nDifficulty: " + difficulty,
+                "Match Found",
+                JOptionPane.INFORMATION_MESSAGE);
+
         launchBattleArena();
     }
 
